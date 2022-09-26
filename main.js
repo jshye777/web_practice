@@ -34,20 +34,12 @@
 const navbar = document.querySelector('#navbar');
 const navbarHeight = navbar.getBoundingClientRect().height;
 
-// const homeScroll = document.querySelector('#home').scrollTop;
-// const aboutScroll = document.querySelector('#about').scrollTop;
-
 //1)스크롤위치를 파악해야함 (각 섹션별로)
 
 document.addEventListener('scroll', ()=> {
   // console.log(window.scrollY);
   // console.log(window.scrollX);
   // console.log(`navbarHeight: ${navbarHeight}`);
-
-  // console.log(`homescroll: ${homeScroll}`);
-  // console.log(`aboutscroll: ${aboutScroll}`);
-
-
   if(window.scrollY > navbarHeight){
     navbar.classList.add('navbar--dark');
   }else{
@@ -77,11 +69,23 @@ navbarMenu.addEventListener('click', (event) => {
 const contact = document.querySelector('.home__contact');
 contact.addEventListener('click', () => {
   scrollIntoView('#contact')
-})
+});
+
+// 스크롤이 진행되면 해당 home에 내용들을 투명색으로 바꿔줌.
+const home = document.querySelector('.home__container');
+const homeHeight = home.getBoundingClientRect().height;
+
+document.addEventListener('scroll', ()=>{
+  // console.log(`homeHeight: ${homeHeight}`);
+  // console.log(1-window.scrollY / homeHeight);
+  home.style.opacity = 1-window.scrollY / homeHeight;
+
+});
+
 
 // 계속적으로 쓸 수 있는 확률이 있기때문에 해당 내용들은 함수로 정의해준다.
 function scrollIntoView(selector){
   const scrollTo = document.querySelector(selector);
 
   scrollTo.scrollIntoView({behavior:'smooth'});
-}
+};
