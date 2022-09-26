@@ -68,7 +68,7 @@ navbarMenu.addEventListener('click', (event) => {
 
 const contact = document.querySelector('.home__contact');
 contact.addEventListener('click', () => {
-  scrollIntoView('#contact')
+  scrollIntoView('#contact');
 });
 
 // 스크롤이 진행되면 해당 home에 내용들을 투명색으로 바꿔줌.
@@ -81,6 +81,22 @@ document.addEventListener('scroll', ()=>{
   home.style.opacity = 1-window.scrollY / homeHeight;
 
 });
+
+// 스크롤 시 버튼이 보이도록
+const topBtn = document.querySelector('.top');
+
+document.addEventListener('scroll', ()=>{
+  if(window.scrollY>homeHeight / 2){
+    topBtn.classList.add('visible');
+  }else{
+    topBtn.classList.remove('visible');
+  }
+});
+
+topBtn.addEventListener('click', ()=>{
+  scrollIntoView('#home');
+});
+
 
 
 // 계속적으로 쓸 수 있는 확률이 있기때문에 해당 내용들은 함수로 정의해준다.
