@@ -9,6 +9,25 @@
 //   }
 // }
 
+// function moveHome(){
+//   window.scrollTo({top:0,left:0, behavior:'smooth'});
+// }
+// function moveAbout(){
+//   window.scrollTo({top:588,left:0, behavior:'smooth'});
+// }
+// function moveSkills(){
+//   window.scrollTo({top:1346,left:0, behavior:'smooth'});
+// }
+// function moveWorks(){
+//   window.scrollTo({top:2048,left:0, behavior:'smooth'});
+// }
+// function moveTesti(){
+//   window.scrollTo({top:3150,left:0, behavior:'smooth'});
+// }
+// function moveContact(){
+//   window.scrollTo({top:3233,left:0, behavior:'smooth'});
+// }
+
 'use strict';
 
 //navbar투명 후  스크롤 후  색 넣기
@@ -52,30 +71,17 @@ navbarMenu.addEventListener('click', (event) => {
     return;
   }
 
-  const scrollTo = document.querySelector(link);
-  scrollTo.scrollIntoView({behavior:"smooth"});
+  scrollIntoView(link);
 });
 
-// function moveHome(){
-//   window.scrollTo({top:0,left:0, behavior:'smooth'});
-// }
+const contact = document.querySelector('.home__contact');
+contact.addEventListener('click', () => {
+  scrollIntoView('#contact')
+})
 
-// function moveAbout(){
-//   window.scrollTo({top:588,left:0, behavior:'smooth'});
-// }
+// 계속적으로 쓸 수 있는 확률이 있기때문에 해당 내용들은 함수로 정의해준다.
+function scrollIntoView(selector){
+  const scrollTo = document.querySelector(selector);
 
-// function moveSkills(){
-//   window.scrollTo({top:1346,left:0, behavior:'smooth'});
-// }
-
-// function moveWorks(){
-//   window.scrollTo({top:2048,left:0, behavior:'smooth'});
-// }
-
-// function moveTesti(){
-//   window.scrollTo({top:3150,left:0, behavior:'smooth'});
-// }
-
-// function moveContact(){
-//   window.scrollTo({top:3233,left:0, behavior:'smooth'});
-// }
+  scrollTo.scrollIntoView({behavior:'smooth'});
+}
