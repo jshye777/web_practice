@@ -97,6 +97,36 @@ topBtn.addEventListener('click', ()=>{
   scrollIntoView('#home');
 });
 
+// work projects
+const workBtnContainer = document.querySelector('.work__category');
+const projectContainer = document.querySelector('.work__projects');
+
+// 이 프로젝트들을 배열로 받아온다.
+const projects = document.querySelectorAll('.project');
+
+workBtnContainer.addEventListener('click', (e)=>{
+  const filter = e.target.dataset.filter || e.target.parentNode.dataset.filter;
+  // console.log(filter);
+
+  if(filter == null){
+    return;
+  }
+  projectContainer.classList.add('anim-out');
+
+  setTimeout(() => {
+    projects.forEach((project)=>{
+      // console.log(project);
+      // console.log(project.dataset.type);
+      if(filter === '*' || project.dataset.type === filter ){
+        project.classList.remove('invisible');
+      }else{
+        project.classList.add('invisible');
+      }
+    });
+
+    projectContainer.classList.remove('anim-out');
+  }, 300);
+});
 
 
 // 계속적으로 쓸 수 있는 확률이 있기때문에 해당 내용들은 함수로 정의해준다.
