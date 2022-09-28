@@ -46,6 +46,8 @@ document.addEventListener('scroll', ()=> {
     navbar.classList.remove('navbar--dark');
   };
 
+  navbarMenu.classList.remove('show');
+
 });
 
 //navbar toggle
