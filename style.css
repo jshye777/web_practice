@@ -179,6 +179,10 @@ p{
   border-radius: var(--size-border-radius);
 }
 
+.home__contact:hover{
+  background-color: var(--color-orange);
+}
+
 /* section : 전체적으로 아이템들이 중앙정렬*/
 .section{
   text-align: center;
@@ -322,6 +326,7 @@ p{
   border-radius: var(--size-border-radius);
   font-size:var(--font-regular);
   padding: 8px 48px;
+  position:relative;
 }
 
 .category__btn.selected, .category__btn:hover{
@@ -337,9 +342,9 @@ p{
   height:24px;
   line-height:24px;
   display: inline-block;
-  position:relative;
+  position: absolute;
   top:-20px;
-  left:4px;
+  right:16px;
   opacity: 0;
   transition: all var(--animation-duration) ease-in;
 }
@@ -430,7 +435,7 @@ p{
   margin:40px;
 }
 
-.testmonial{
+.testimonial{
   display: flex;
   margin: 32px 0;
 }
@@ -516,10 +521,23 @@ p{
 
 /* for below 768px screen width */
 @media screen and (max-width: 768px){
+  :root{
+    --font-large: 30px;
+    --font-medium: 24px;
+    --font-regular: 16px;
+    --font-small: 14px;
+    --font-micro: 12px;
+  }
+
   .navbar__toggle-btn{
     display: block;
   }
   
+  .section{
+    padding:16px;
+    padding-top:45px;
+  }
+
   #navbar{
     flex-direction: column;
     align-items: flex-start;
@@ -544,22 +562,54 @@ p{
 
   .about__majors{
     flex-direction: column;
+    margin-top: 30px;
+    margin-bottom: 0px;
   }
 
   .major{
-    margin:38px;
+    margin:30px;
   }
 
   .skillset{
     flex-direction: column;
   }
 
+  .category__btn{
+    margin: 4px 0;
+    width: 100%;
+  }
+
   .project{
     flex-grow:1;
   }
 
-  .testimonials__avatar{
-    width: 80px;
-    height: 80px;
+  .testimonial{
+    flex-direction: column;
+    align-items: center;
   }
+
+  .testimonials__avatar{
+    width: 120px;
+    height: 120px;
+  }
+
+  .testimonials__avatar:nth-child(even),
+  .testimonials__avatar:nth-child(odd){
+    margin:0;
+    margin-bottom: 8px;
+  }
+
+  .testimonial__speech-bubble{
+    order:1;
+  }
+
+  .top{
+    font-size:20px;
+    width:40px;
+    height:40px;
+    line-height: 40px;
+    right:15px;
+    bottom:15px;
+  }
+
 }
