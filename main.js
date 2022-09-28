@@ -111,6 +111,14 @@ workBtnContainer.addEventListener('click', (e)=>{
   if(filter == null){
     return;
   }
+  // 버튼 클릭 시 전에 클릭됐던 값들은 없애고 현재클릭된 아이들로 색깔이 나타나도록
+  const active = document.querySelector('.category__btn.selected');
+  active.classList.remove('selected');
+  
+  // 현재 span 태그에 눌렀을 때 null이 나오니까 해당 처리를 해줘야함. 
+  const target = e.target.nodeName === 'BUTTON' ? e.target : e.target.parentNode;
+  target.classList.add('selected');
+
   projectContainer.classList.add('anim-out');
 
   setTimeout(() => {
