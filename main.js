@@ -48,6 +48,13 @@ document.addEventListener('scroll', ()=> {
 
 });
 
+//navbar toggle
+const navbarToggle = document.querySelector('.navbar__toggle-btn');
+
+navbarToggle.addEventListener('click', ()=> {
+  navbarMenu.classList.toggle('show');
+});
+
 // handle scrolling navbar menu
 const navbarMenu = document.querySelector('.navbar__menu');
 
@@ -62,6 +69,8 @@ navbarMenu.addEventListener('click', (event) => {
   if (link == null){
     return;
   }
+
+  navbarMenu.classList.remove('show');
 
   scrollIntoView(link);
 });
@@ -135,7 +144,6 @@ workBtnContainer.addEventListener('click', (e)=>{
     projectContainer.classList.remove('anim-out');
   }, 300);
 });
-
 
 // 계속적으로 쓸 수 있는 확률이 있기때문에 해당 내용들은 함수로 정의해준다.
 function scrollIntoView(selector){
