@@ -34,12 +34,14 @@
 const navbar = document.querySelector('#navbar');
 const navbarHeight = navbar.getBoundingClientRect().height;
 
+
 //1)스크롤위치를 파악해야함 (각 섹션별로)
 
 document.addEventListener('scroll', ()=> {
   // console.log(window.scrollY);
   // console.log(window.scrollX);
   // console.log(`navbarHeight: ${navbarHeight}`);
+
   if(window.scrollY > navbarHeight){
     navbar.classList.add('navbar--dark');
   }else{
@@ -56,6 +58,72 @@ const navbarToggle = document.querySelector('.navbar__toggle-btn');
 navbarToggle.addEventListener('click', ()=> {
   navbarMenu.classList.toggle('show');
 });
+
+//navbar intersectionobserver
+// 1. 모든 섹션 요소들을 가져온다. 메뉴아이템들도 가져온다.
+// 2. intersectionobserver를 이용해서 섹션들을 관찰한다.
+// 3. 보여지는 섹션에 해당되는 메뉴아이템을 활성화한다.
+// const navbarItem = document.querySelectorAll('.navbar__menu__item');
+
+//1)
+//section이 해당되는 아이디들을 배열로만들어준다. (해당 하는 모든 section 요소)
+const sectionIds = ['#home', '#about', '#skills', '#work', '#testimonials', '#contact']
+
+// 이 배열들을 어디에 해당되는 곳에 널을 수 있도록 설정한다. (배열을 받아서 id에 넣을 수있게 map)
+const sections = sectionIds.map(id => document.querySelector(id));
+// console.log(section);
+
+//section에 해당되는 navitem을 가져와야한다. (data-link)
+const navItems = sectionIds.map(id => document.querySelector(`[data-link="${id}"]`))
+// console.log(navItems);
+
+//2)
+let selectedNavIndex = 0;
+let selectedNavItem = navItems[0];
+
+function selectNavItem(selected){
+  selectedNavItem.classList.remove('active');
+  selectedNavItem = selected;
+  selectedNavItem.classList.add('active');
+}
+
+const options ={
+  root: null,
+  rootMargin: '0px',
+  threshold: 0.3,
+};
+
+const callback = (entries, observer) => {
+  // console.log(entries);
+  entries.forEach(entry => {
+    // console.log(entry.target);
+
+    // 진입했다가 나갈때
+    if(!entry.isIntersecting && entry.intersectionRatio>0 ){
+      const index = sectionIds.indexOf(`#${entry.target.id}`);
+      
+      // 스크롤창이 아래로 되어서 페이지가 올라올때
+      if (entry.boundingClientRect.y < 0){
+        selectedNavIndex = index+1;
+      }else{
+        selectedNavIndex = index-1;
+      }
+    }
+  });
+};
+const observer = new IntersectionObserver(callback, options);
+
+sections.forEach(section=> observer.observe(section));
+
+window.addEventListener('wheel', () => {
+  if (window.scrollY ===0 ){
+    selectedNavIndex = 0;
+  }else if (Math.round(window.scrollY + window.innerHeight) >= document.body.clientHeight){
+    selectedNavIndex = navItems.length-1;
+  }
+  selectNavItem(navItems[selectedNavIndex]);
+});
+
 
 // handle scrolling navbar menu
 const navbarMenu = document.querySelector('.navbar__menu');
@@ -75,7 +143,9 @@ navbarMenu.addEventListener('click', (event) => {
   navbarMenu.classList.remove('show');
 
   scrollIntoView(link);
+  selectNavItem(target);
 });
+
 
 const contact = document.querySelector('.home__contact');
 contact.addEventListener('click', () => {
@@ -152,4 +222,5 @@ function scrollIntoView(selector){
   const scrollTo = document.querySelector(selector);
 
   scrollTo.scrollIntoView({behavior:'smooth'});
+  selectNavItem (navItems[sectionIds.indexOf(selector)]);
 };
